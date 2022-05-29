@@ -10,23 +10,36 @@ export default function (props) {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:8081/ws');
-        ws.onopen = () => {
+        setSocket(new WebSocket('ws://localhost:8081/ws'))
+
+        return () => {
+            if (socket !== null) {
+                socket.close()
+            }
+        }
+    }, [])
+
+
+    if (socket !== null) {
+        console.log('s not empty.')
+
+        socket.onopen = () => {
             console.log('open')
-            ws.send('hello')
+            socket.send('hello')
         }
 
-        ws.onmessage = (msg) => {
+        socket.onmessage = (msg) => {
             console.log('msg', msg.data, msg)
         }
-        ws.onerror = (err) => {
+        setSocket.onerror = (err) => {
             console.log('err', err)
         }
-        ws.onclose = () => {
+        setSocket.onclose = () => {
             console.log('close')
         }
+    }
 
-    }, [])
+
 
     const videoRef = useRef(null);
 
