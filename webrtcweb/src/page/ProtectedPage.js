@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const constraints = window.constraints = {
@@ -7,6 +7,27 @@ const constraints = window.constraints = {
 };
 
 export default function (props) {
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        const ws = new WebSocket('ws://localhost:8081/ws');
+        ws.onopen = () => {
+            console.log('open')
+            ws.send('hello')
+        }
+
+        ws.onmessage = (msg) => {
+            console.log('msg', msg.data, msg)
+        }
+        ws.onerror = (err) => {
+            console.log('err', err)
+        }
+        ws.onclose = () => {
+            console.log('close')
+        }
+
+    }, [])
+
     const videoRef = useRef(null);
 
     const constraints = window.constraints = {
@@ -33,7 +54,10 @@ export default function (props) {
     }
 
     return <>
-        <video ref={videoRef} autoPlay playsInline ></video>
+        <div style={{ heght: "200px" }}>
+
+        </div>
+        <video ref={videoRef} autoPlay playsInline style={{ height: "200px" }}></video>
         <button id="showVideo" onClick={(e) => openCamara(e)}>Open camera</button>
 
         <Link to="/a">NoMatch</Link>
