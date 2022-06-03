@@ -10,7 +10,8 @@ export default function (props) {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        setSocket(new WebSocket('ws://localhost:8081/ws'))
+        console.log("ws", process.env.REACT_APP_websocket)
+        setSocket(new WebSocket(process.env.REACT_APP_websocket))
 
         return () => {
             if (socket !== null) {

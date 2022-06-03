@@ -9,7 +9,7 @@ import NoMatchPage from './page/NoMatchPage'
 export default function App() {
     return (<AuthProvider>
         <Routes>
-            <Route path="/" element={<PublicPage/>}/>
+            <Route path="/"  element={<PublicPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route
                 path="/protected"
