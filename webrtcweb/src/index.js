@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 
 console.log('env:', process.env.REACT_APP_env)
 ReactDOM.render(
-    <BrowserRouter basename={'/video'}>
+    <BrowserRouter basename="/video/">
         <App />
     </BrowserRouter>,
     document.getElementById('root')
